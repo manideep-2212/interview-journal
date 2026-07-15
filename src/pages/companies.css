@@ -1,0 +1,62 @@
+.box1{
+    width: 900px;
+    margin: 30px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.CompanyForm{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 20px;
+    width: 400px;
+    padding: 20px;
+
+    border: 1px solid #ddd;
+    border-radius: 12px;
+
+    background: #222;   /* optional */
+}
+
+.CompanyForm input,
+.CompanyForm select{
+
+    padding: 10px;
+
+    border-radius: 8px;
+
+    border:1px solid gray;
+}
+
+.CompanyForm button{
+
+    padding:10px;
+
+    cursor:pointer;
+
+    border:none;
+
+    border-radius:8px;
+}
+.companyList{
+
+    margin-top:40px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:20px;
+}
+.companyCard{
+ width: 400px;
+    padding: 15px;
+
+    border: 1px solid #ddd;
+    border-radius: 10px;
+
+    text-align: left;
+}
