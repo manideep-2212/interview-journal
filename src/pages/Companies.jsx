@@ -21,6 +21,12 @@ function addCompany(){
     setRole("");
     setStatus("Applied");
 }
+function deleteCompany(indexToDel){
+    const updatedCompanies = companies.filter((item,index)=>
+        index!==indexToDel
+    );
+    setCompanies(updatedCompanies);
+}
     return(
         <>
             <h1>Companies page</h1>
@@ -51,6 +57,10 @@ function addCompany(){
                             <h3>{item.company}</h3>
                             <p>{item.role}</p>
                             <p>{item.status}</p>
+                            <div className = "button-container">
+                                <button>Edit</button>
+                                <button onClick={()=> deleteCompany(index)}>Delete</button>
+                            </div>
                         </div>
                     ))}
             </div>   
