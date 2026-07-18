@@ -1,68 +1,101 @@
 .box1{
-    width: 900px;
+    max-width: 1200px;
+    width:90%;
     margin: 30px auto;
     display: flex;
-    flex-direction: column;
+    flex-direction:column;
     align-items: center;
-    gap: 30px;
+    gap: 10px;
 }
 
 .CompanyForm{
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 12px;
     margin: 20px;
-    width: 400px;
+    width: 320px;
     padding: 20px;
-
-    border: 1px solid #ddd;
+    /* border: 1px solid #ddd; */
     border-radius: 12px;
-
-    background: #222;   /* optional */
+    background:white; 
+    box-shadow:  0 8px 20px rgba(0,0,0,0.12);  
 }
 
 .CompanyForm input,
 .CompanyForm select{
-
     padding: 10px;
-
     border-radius: 8px;
-
-    border:1px solid gray;
+    border:1px solid #ccc;
+    font-size:15px;
+}
+.CompanyForm input:focus,
+.CompanyForm select:focus{
+    outline: none;
+    border-color: royalblue;
 }
 
 .CompanyForm button{
-
-    padding:10px;
-
+    margin-top:10px;
+    padding:12px;
+    background: royalblue;
     cursor:pointer;
-
+    color: white;
     border:none;
-
+    font-size: 15px;
+    transition: .3s;
     border-radius:8px;
 }
+.CompanyForm button:hover{
+    background: #214ec5;
+}
 .companyList{
-
-    margin-top:40px;
-
-    display:flex;
-
-    flex-direction:column;
-
+    width:100%;
+    display:grid;
+    grid-template-columns: repeat(auto-fill, 280px);
     gap:20px;
+    justify-content:center;
 }
+
 .companyCard{
- width: 400px;
-    padding: 15px;
-
+    padding: 25px;
+    border-radius:15px;
     border: 1px solid #ddd;
-    border-radius: 10px;
-
-    text-align: left;
+    box-shadow:0 5px 15px rgba(0,0,0,.1);
+    transition:.3s;
 }
+.companyCard:hover{
+    transform:translateY(-5px);
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+}
+.companyCard h3{
+    margin-bottom:10px;
+    color:#333;
+}
+.companyCard p{
+    margin:6px 0;
+    color:#666;
+}
+
 .button-container{
     display:flex;
-    flex-direction:row;
-    justify-content:space-around;
-    align-items:center;
+    justify-content:space-between;
+    margin-top:15px;
+}
+.button-container button:first-child{
+    background:#28a745;
+    color:white;
+}
+.button-container button:last-child{
+    background:#dc3545;
+    color:white;
+}
+.button-container button{
+    border:none;
+    padding:8px 15px;
+    border-radius:8px;
+    cursor:pointer;
+    transition:.3s;
+}
+.button-container button:hover{
+    opacity:.9;
 }
