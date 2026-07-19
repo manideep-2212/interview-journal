@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useState,useEffect,useRef} from "react";
 import "./companies.css"
 function Companies(){
     const [company,setCompany] = useState("");
@@ -7,6 +7,14 @@ function Companies(){
     const [companies,setCompanies] = useState([]);
     const [editIndex,setEditIndex] = useState(null);
     const [isEditing,setIsEditing] = useState(false);
+    const firstRender = useRef(true);
+    useEffect(()=>{
+            const savedCompanies = localStorage.getItem("companies");
+            if(savedCompanies){
+                setCompanies(JSON.parse(savedCompanies));
+                console.log("Loaded from localStorage:", savedCompanies);
+            }
+    },[]);
 
     function addCompany(){
         if (company.trim() === "" || role.trim() === "") {
@@ -24,6 +32,16 @@ function Companies(){
         setRole("");
         setStatus("Applied");
     }
+
+    useEffect(()=>{
+        if(firstRender.current){
+            firstRender.current=false;
+            return;
+        }
+        const res = JSON.stringify(companies);
+        localStorage.setItem("companies",res);
+    },[companies]);
+
     function updateCompany(){
         const updatedCompanies = companies.map((item,index)=>{
             if(index===editIndex){
@@ -55,6 +73,7 @@ function Companies(){
         setRole(item.role);
         setStatus(item.status);
     }
+    console.log("Current companies state:", companies);
     return(
         <>
             <h1>Companies page</h1>
