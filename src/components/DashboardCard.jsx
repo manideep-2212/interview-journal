@@ -1,7 +1,7 @@
 import "./DashboardCard.css";
 function DashboardCard({title,count,color,icon}){
     return(
-        <div className="card-container">
+        <div>
             <div className="dashboard-card" style={{ borderLeft: `6px solid ${color}` }}>
             <div className="card-icon">{icon}</div>
 

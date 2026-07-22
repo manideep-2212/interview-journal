@@ -1,20 +1,11 @@
 import {useState,useEffect,useRef} from "react";
 import "./companies.css"
-function Companies(){
+function Companies({companies,setCompanies}){
     const [company,setCompany] = useState("");
     const [role,setRole] = useState("");
     const [status,setStatus] = useState("Applied");
-    const [companies,setCompanies] = useState([]);
     const [editIndex,setEditIndex] = useState(null);
     const [isEditing,setIsEditing] = useState(false);
-    const firstRender = useRef(true);
-    useEffect(()=>{
-            const savedCompanies = localStorage.getItem("companies");
-            if(savedCompanies){
-                setCompanies(JSON.parse(savedCompanies));
-                console.log("Loaded from localStorage:", savedCompanies);
-            }
-    },[]);
 
     function addCompany(){
         if (company.trim() === "" || role.trim() === "") {
@@ -32,15 +23,6 @@ function Companies(){
         setRole("");
         setStatus("Applied");
     }
-
-    useEffect(()=>{
-        if(firstRender.current){
-            firstRender.current=false;
-            return;
-        }
-        const res = JSON.stringify(companies);
-        localStorage.setItem("companies",res);
-    },[companies]);
 
     function updateCompany(){
         const updatedCompanies = companies.map((item,index)=>{
@@ -93,6 +75,7 @@ function Companies(){
                     <option>Applied</option>
                     <option>Interview</option>
                     <option>Rejected</option>
+                    <option>Exam Attempted</option>
                     <option>Offer</option>
                 </select>
                 {
