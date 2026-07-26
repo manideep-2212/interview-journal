@@ -10,10 +10,22 @@ function Dashboard({companies}){
     const examAttemptedCount = companies.filter(item => item.status === "Exam Attempted").length;
     const interviewCount = companies.filter(item=>item.status==="Interview").length;
     const offerCount = companies.filter(item=>item.status==="Offer").length;
-
+    function generateInsight(){
+        const insights = [];
+        if(appliedCount==0){
+            insights.push("You have not applied to any companies. Keep applying. ");
+        }
+        if(interviewCount!==0){
+            insights.push(`You have ${interviewCount} interview(s) scheduled. Prepare well.`)
+        }
+        return insights;
+    }
     return(
         <>
-            <h1>Interview Journal Dashboard</h1>
+            <div  className="dashboard-header">
+                <h1>Welcome to the DashBoard Sai!</h1>
+                <p>Track your placement journey, here!</p>
+            </div>
             <div className="card-container">
                 <DashboardCard
                     title ="Applied"
@@ -45,6 +57,25 @@ function Dashboard({companies}){
                     color="#50f72a"
                     icon={<FaCheckCircle />}
                 />
+            </div>
+            {/* Smart Insights */}   
+            <div className="insights-container">
+                <h2>Smart Insights</h2>
+                <p>Smart Insights will appear here</p>
+            </div>
+            {/* Quick Actions */}
+            <div className="quick-actions">
+                <h2>Quick Actions</h2>
+                <div className="button-container">
+                    <button>+ Add Company</button>
+                    <button>Experience</button>
+                    <button>Notes</button>
+                </div>
+            </div>
+            {/* Charts */}
+            <div className="chart-container">
+                <h2>Chart Distribution</h2>
+                <p>Charts coming soon....</p>
             </div>
         </>
     );
