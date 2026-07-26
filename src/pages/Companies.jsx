@@ -4,33 +4,40 @@ function Companies({companies,setCompanies}){
     const [company,setCompany] = useState("");
     const [role,setRole] = useState("");
     const [status,setStatus] = useState("Applied");
-    const [editIndex,setEditIndex] = useState(null);
+    const [editId,setEditId] = useState(null);
     const [isEditing,setIsEditing] = useState(false);
+    const [serachItem,setSearchItem] = useState("");
 
     function addCompany(){
         if (company.trim() === "" || role.trim() === "") {
             alert("Please fill all fields.");
             return;
         }
+        let maxId = 0;
+        companies.forEach(item => {
+            maxId = Math.max(maxId,item.id);
+        });
+        const nextId = maxId+1;
         setCompanies(
             [...companies,{
+                id:nextId,
                 company,
                 role,
                 status
             }
-        ]);
+        ]);        
         setCompany("");
         setRole("");
         setStatus("Applied");
     }
-
     function updateCompany(){
-        const updatedCompanies = companies.map((item,index)=>{
-            if(index===editIndex){
+        const updatedCompanies = companies.map((item)=>{
+            if(item.id===editId){
                 return{
-                    company:company,
-                    role:role,
-                    status:status
+                    ...item,
+                    company,
+                    role,
+                    status
                 }
             };
             return item;
@@ -39,25 +46,38 @@ function Companies({companies,setCompanies}){
         setCompany("");
         setRole("");
         setStatus("Applied");
-        setEditIndex(null);
+        setEditId(null);
         setIsEditing(false);
     }
-    function deleteCompany(indexToDel){
-        const updatedCompanies = companies.filter((item,index)=>
-            index!==indexToDel
+    function deleteCompany(idToDel){
+        const updatedCompanies = companies.filter((item)=>
+            item.id!==idToDel
         );
         setCompanies(updatedCompanies);
     }
-    function editForm(item,index){
-        setEditIndex(index);
+    function editForm(item,id){
+        setEditId(id);
         setIsEditing(true);
         setCompany(item.company);
         setRole(item.role);
         setStatus(item.status);
     }
+
+    const serachedArray = companies.filter(
+        (item)=>item.company.toLowerCase().includes(serachItem.toLowerCase())
+    );
+
     console.log("Current companies state:", companies);
     return(
         <>
+        <div>
+            <div>
+                <input type="text" 
+                    value ={serachItem}
+                    onChange={(e)=>setSearchItem(e.target.value)}
+                    placeholder="Enter the company to search" />
+            </div>
+        </div>
             <h1>Companies page</h1>
         <div className="box1">
             <div className="CompanyForm">
@@ -87,14 +107,14 @@ function Companies({companies,setCompanies}){
             </div>
             <h2>Companies</h2>
             <div className="companyList">
-                    {companies.map((item,index)=>(
-                        <div key={index} className="companyCard">
+                    {serachedArray.map((item)=>(
+                        <div key={item.id} className="companyCard">
                             <h3>{item.company}</h3>
                             <p>{item.role}</p>
                             <p>{item.status}</p>
                             <div className = "button-container">
-                                <button onClick={()=>editForm(item,index)}>Edit</button>
-                                <button onClick={()=> deleteCompany(index)}>Delete</button>
+                                <button onClick={()=>editForm(item,item.id)}>Edit</button>
+                                <button onClick={()=> deleteCompany(item.id)}>Delete</button>
                             </div>
                         </div>
                     ))}
@@ -103,4 +123,5 @@ function Companies({companies,setCompanies}){
         </>
     );
 }
+
 export default Companies;
