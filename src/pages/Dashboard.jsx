@@ -3,6 +3,7 @@ import "./dashboard.css";
 import { IoDocumentText } from "react-icons/io5";
 import { FaBriefcase, FaCheckCircle, FaLaptop } from "react-icons/fa";
 import { MdCancel } from "react-icons/md";
+import {useNavigate} from "react";
 
 function Dashboard({companies}){
     const appliedCount = companies.filter((item)=>(item.status==="Applied")).length;
@@ -20,6 +21,7 @@ function Dashboard({companies}){
         }
         return insights;
     }
+     const insights = generateInsight();
     return(
         <>
             <div  className="dashboard-header">
@@ -61,7 +63,12 @@ function Dashboard({companies}){
             {/* Smart Insights */}   
             <div className="insights-container">
                 <h2>Smart Insights</h2>
-                <p>Smart Insights will appear here</p>
+                {insights.length===0 
+                 ?(<p>Smart Insights will appear here</p>):
+                (insights.map((item,index)=>(
+                        <p key={index}>{item}</p>
+                )))
+            }   
             </div>
             {/* Quick Actions */}
             <div className="quick-actions">
