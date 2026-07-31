@@ -1,11 +1,13 @@
 import DashboardCard from "../components/DashboardCard";
+import DashBoardChart from "../components/DashBoardChart";
 import "./dashboard.css";
 import { IoDocumentText } from "react-icons/io5";
 import { FaBriefcase, FaCheckCircle, FaLaptop } from "react-icons/fa";
 import { MdCancel } from "react-icons/md";
-import {useNavigate} from "react";
+import {useNavigate} from "react-router-dom";
 
 function Dashboard({companies}){
+    const navigate = useNavigate();
     const appliedCount = companies.filter((item)=>(item.status==="Applied")).length;
     const rejectedCount = companies.filter((item)=>item.status==="Rejected").length;
     const examAttemptedCount = companies.filter(item => item.status === "Exam Attempted").length;
@@ -74,15 +76,19 @@ function Dashboard({companies}){
             <div className="quick-actions">
                 <h2>Quick Actions</h2>
                 <div className="button-container">
-                    <button>+ Add Company</button>
-                    <button>Experience</button>
-                    <button>Notes</button>
+                    <button onClick={() => navigate("/companies")}>+ Add Company</button>
+                    <button onClick={() => navigate("/experience")}>Experience</button>
+                    <button onClick={() => navigate("/notes")}>Notes</button>
                 </div>
             </div>
             {/* Charts */}
             <div className="chart-container">
                 <h2>Chart Distribution</h2>
-                <p>Charts coming soon....</p>
+                <DashBoardChart appliedCount={appliedCount}
+                examAttemptedCount={examAttemptedCount}
+                rejectedCount={rejectedCount}
+                interviewCount={interviewCount}
+                offerCount={offerCount} />
             </div>
         </>
     );
