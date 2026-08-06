@@ -1,4 +1,5 @@
 import {useState} from "react";
+import "./experience.css"
 function Experience(){
     const [journalEntry,setJournalEntry] = useState({
         company:"",
@@ -8,13 +9,34 @@ function Experience(){
         result:"",
         experience:""
     });
+    const [journalEntries,setJournalEntries] = useState([]);
+    function save(){
+        setJournalEntries([
+            ...journalEntries,
+            journalEntry
+        ]);
+        setJournalEntry({
+            company:"",
+            role:"",
+            round:"",
+            date:"",
+            result:"",
+            experience:""
+        })
+        
+    }
     function handleChange(e){
-    const variable = e.target.id;
-    setJournalEntry({
-        ...journalEntry,
-        [variable] : e.target.value
-    });
-}
+        const variable = e.target.id;   
+        setJournalEntry({
+            ...journalEntry,
+            [variable] : e.target.value
+        });
+    }
+    function handleEdit(id){
+        setJournalEntry({
+            ...journalEntries[id]
+        })
+    }
     return(
         <>
             <h1>Experience page</h1>
@@ -40,23 +62,35 @@ function Experience(){
                 </select>
                 <br></br>
                 <label>Date</label>
-                <input value = {journalEntry.date} id="date"
+                <input value = {journalEntry.date}
                 onChange = {handleChange}
                 type="date" 
                 id="date" /><br></br>
                 <label>Result</label>
                 <select value={journalEntry.result}
-                onChange = {handleChange}>
+                onChange = {handleChange} id="result">
                     <option>Quailified</option>
                     <option>Disqualified</option>
                 </select><br></br>
                 <label>Experience and Learnings</label>
                 <textarea id ="experience" value={journalEntry.experience}
                 onChange = {handleChange}></textarea><br></br>
-                <button>Save</button>
-                <button>Edit</button>
-                <button>Delete</button>
-            </div> 
+                <button onClick = {save}>Save</button>
+            </div>
+            <div>
+                {
+                journalEntries.map((entry,id) => (
+                    <div key={id} className="box1">
+                        <h4>{entry.company}</h4>
+                        <h4>{entry.round}</h4>
+                        <h6>{entry.result}</h6>
+                        <p>{entry.experience}</p>
+                        <button onClick={()=>handleEdit(id)}>Edit</button>
+                        <button>Delete</button>
+                    </div>
+                ))
+            }
+            </div>
         </>
     
 
